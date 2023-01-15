@@ -24,4 +24,9 @@ public partial class Artist
 
     [NotMapped] 
     public List<int>? GenresIds { get; set; }
+
+    [NotMapped]
+    public string FullName {
+        get { return FirstName + " " + LastName; }
+    }
 }

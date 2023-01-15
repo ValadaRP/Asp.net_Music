@@ -144,8 +144,10 @@ namespace Projekt.Controllers
                 return Problem("Entity set 'MusicDatabaseContext.Albums'  is null.");
             }
             var album = await _context.Albums.FindAsync(id);
+            
             if (album != null)
             {
+                album.Songs.Clear();
                 _context.Albums.Remove(album);
             }
             

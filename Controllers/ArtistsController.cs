@@ -219,9 +219,11 @@ namespace Proje.Controllers
             {
                 return Problem("Entity set 'MusicDatabaseContext.Artists'  is null.");
             }
-            var artist = await _context.Artists.Include(a => a.Albums).FirstOrDefaultAsync(m => m.Id == id);
+            var artist = await _context.Artists.Include(a => a.AlbumsNavigation).FirstOrDefaultAsync(m => m.Id == id);
+
             if (artist.Albums != null)
             {
+                artist.Albums = null;
                 _context.Artists.Remove(artist);
             }
 

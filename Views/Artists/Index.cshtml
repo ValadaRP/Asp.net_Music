@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Projekt.Models.Artist>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Artist</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<div>
+    @await Component.InvokeAsync("Artist")
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nationality)
+            </th>
+            <th>
+                All Albums
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genres)
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nationality)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Albums)*@
+                @foreach (var album in ViewBag.Albums)
+                    {
+                        @album.Title <br />
+                        
+                    }
+            </td>
+                <td>
+                    @foreach (var genre in item.Genres)
+                    {
+                        @genre.Name
+                        ;
+                        @*@: |*@
+                        <br />
+                    }
+                </td>
+            <td class="d-flex justify-content-center gap-2">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

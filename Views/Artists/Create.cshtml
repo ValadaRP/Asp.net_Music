@@ -1,0 +1,75 @@
+﻿@model Projekt.Models.Artist
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Artist</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nationality" class="control-label"></label>
+                <input asp-for="Nationality" class="form-control" />
+                <span asp-validation-for="Nationality" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Albums" class="control-label"></label>
+                <input asp-for="Albums" class="form-control" />
+                <span asp-validation-for="Albums" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Albums" class="control-label"></label>
+                <select asp-for="Albums" class ="form-control" asp-items="ViewBag.Albums"></select>
+            </div>
+            @if (ViewBag.Genres == null || ViewBag.Genres.Count == 0)
+            {
+                <div>Brak dostępnych gatunkow</div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="control-label">Gatunki</label>
+                    @foreach (var genres in ViewBag.Genres)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="GenresIds" value="@genres.Id" />
+                            <label class="form-check-label">@genres.Name</label>
+                        </div>
+                    }
+                </div>
+            }
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
